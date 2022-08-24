@@ -28,10 +28,10 @@ workflows:
       - build
           filters:
             branches:
-              only: master
+              only: main
       - test:
         filters:
           branches:
-            only: master
+            only: main
         requires:
           -build
