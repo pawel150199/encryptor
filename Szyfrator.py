@@ -5,158 +5,166 @@ import sys
 
 
 
-"""                         Szyfrator                 """
-class Szyfrator:
+"""ENCRYPTOR"""
+class Encryptor:
     def __init__(self, plain_text, key):
         self.plain_text = plain_text
         self.key = [] 
 
     def keying(self):
-        return self.key# zwraca tablice która zawiera klucz potrzebny do odszyfrowania
+        # Return table with key nessesary to decryption
+        return self.key
 
     def code(self):
-        coded_text = [] #tablica do której zapisuje zakodowany tekst
-        tmp = [] # Tymczasowa tablica potrzebna do zaszyfrowania
+        # Storage for encrypted information
+        coded_text = []
+         # Temporary table to encryption process
+        tmp = []
 
-        for i in range(0, len(self.plain_text)): 
-            now = datetime.datetime.now() # zapisuję aktualny czas
-            hour = now.strftime('%H') # określam w tej zmiennej akttualną godzinę i uzywam jej przy szyfrowaniu dzieki temu wazność klucza to max godzina
-            tmp.append(chr(int(hour)+ i+1)) #wartości zapisuję w tabeli
+        for i in range(0, len(self.plain_text)):
+            # Current time
+            now = datetime.datetime.now()
+            # Current time needed to set lifetime of key
+            hour = now.strftime('%H')
+            tmp.append(chr(int(hour)+ i+1))
         
         for i in range(0, len(self.plain_text)):
-            """      Właściwe szyfrowanie      """
-            x = ord(self.plain_text[i]) #w zmiennej x zapisuję wartości dziesietne kodu ASCII
-            c = x * ord(tmp[i]) #dokonuję mnozenia plain_textu razy tablice ttmp ktora jest iterowana
-            m = math.floor(c/60) + 65 #uzywam funkcji podloga z dzielenia aby potem w deszyfratorze odzyskac wartosc c
-            self.key.append(chr(m)) #wypelniam ttablice kluczem
-            d = (c % 60) + 64 #reszta z dzielenia
-            coded_text.append(chr(d)) #wypełniam zaszyfrowaną tablicę
+            """Encryption process"""
+            x = ord(self.plain_text[i])
+            c = x * ord(tmp[i])
+            m = math.floor(c/60) + 65
+            self.key.append(chr(m))
+            d = (c % 60) + 64
+            # Store encrypted value in table
+            coded_text.append(chr(d))
 
 
-        """     Zapisuję szyfrogram w tabeli dla przejrzystości     """
-        myTable = PrettyTable(["      tekst jawny      ", "          klucz           ", "       Szyfrogram       "])
+        """Print encrypted information"""
+        myTable = PrettyTable(["      plain text      ", "          key           ", "       Encrypted information       "])
         myTable.add_row(["".join(self.plain_text), "".join(self.key), "".join(coded_text)])
         print("\n\n\n")
-        print("\t\t\t\tSzyfrator") #informacja dla uzytkownika
+        print("\t\t\t\tSzyfrator")
         print("\n\n")
-        print(myTable) # wyświetlam tabele
+        print(myTable)
         print("\n\n\n")
-        return "".join(coded_text) #zwracam zakodowany text jako string dla łatwości odczytu
+        # Return Encrypted value as a string
+        return "".join(coded_text)
 
 
 """                           Deszyfrator                  """
 
 
-class Deszyfrator:
+class Decryptor:
     def __init__(self, coded_text, key):
         self.coded_text = coded_text
         self.key = key
     
     def encode(self):
-        tmp = [] # tablica, w której zapisuje dane potrzebne do deszyfrowania
-        plain_text = [] # zapisuje tu tekst rozszyfrowany
+        tmp = []
+        plain_text = []
 
         for i in range(0, len(self.coded_text)): 
-            now = datetime.datetime.now() # zapisuję aktualny czas
-            hour = now.strftime('%H') # określam w tej zmiennej akttualną godzinę i uzywam jej przy szyfrowaniu dzieki temu wazność klucza to max godzina
-            tmp.append(chr(int(hour)+ i+1)) #wartości zapisuję w tabeli
+            now = datetime.datetime.now()
+            hour = now.strftime('%H')
+            tmp.append(chr(int(hour)+ i+1))
 
 
         for i in range(0, len(self.coded_text)):
             """   Właściwe szyfrowanie    """
-            x = ord(self.coded_text[i]) #wartość dkodu ASCII dla poszczególnych wartości szyfrogramu
-            d = x - 64  #wartość z dzielenia modulo - 60
-            c = (ord(self.key[i]) - 65) * 60 + d # wartość c z Szyfratora
-            l = c/ord(tmp[i]) #wartość c z Szyfratora
-            plain_text.append(chr(int(l))) # do tablicy zapisuje poszczególne wartości szyfrogramu
+            x = ord(self.coded_text[i])
+            d = x - 64
+            c = (ord(self.key[i]) - 65) * 60 + d
+            l = c/ord(tmp[i])
+            plain_text.append(chr(int(l)))
 
 
-        """     Zapisuję rozszyfrowaną wiadomość w tabeli dla przejrzystości     """
-        myTable = PrettyTable(["        Szyfrogram       ", "          key         ", "    tekst rozszyfrowany     "])
+        """Decrypted information"""
+        myTable = PrettyTable(["        Encrypted information       ", "          key         ", "    Decrypted information     "])
         myTable.add_row(["".join(self.coded_text), "".join(self.key), "".join(plain_text)])
         print("\n\n\n")
-        print("\t\t\t\tDeszyfrator")
+        print("\t\t\t\tDecryptor")
         print("\n\n")
         print(myTable)
         print("\n\n\n")
-        return "".join(plain_text) #zwracam zakodowany text jako sttring dla łatwości odczytu
+        # Return plain text as a string
+        return "".join(plain_text)
 
 if __name__=='__main__':
 
     n = True;
     while n:
 
-        """     Spis funkcji programu    """
-        print("\n\n\nFunkcje programu : \n\n\n")
-        myTable = PrettyTable(['Funkcjonalność', 'Klawisz funkcyjny'])
-        myTable.add_row(["Prezentacja działania", 1])
-        myTable.add_row(["Szyfrowanie", 2])
-        myTable.add_row(["Deszyfrowanie", 3])
-        myTable.add_row(["Zaszyfrowanie pliku tekstowego", 4])
-        myTable.add_row(["Odszyfrowanie pliku tekstowego", 5])
-        myTable.add_row(["Wyjście z programu", 6])
+        """Function of this script"""
+        print("\n\n\nFunctions : \n\n\n")
+        myTable = PrettyTable(['Function', 'key'])
+        myTable.add_row(["demo", 1])
+        myTable.add_row(["Encryption", 2])
+        myTable.add_row(["Decryption", 3])
+        myTable.add_row(["Encryption text file", 4])
+        myTable.add_row(["Decryption text file", 5])
+        myTable.add_row(["Exit", 6])
         print(myTable)
         
-        i = input("\t\t\nWybierz funkcję programu: ")
+        i = input("\t\t\nChose function: ")
 
         if i == '1': 
             """ Szyfrowanie  i deszyfrowanie - prezentacja działania"""
-            plain_text = input("Podaj tekst:  ") #wprowadzenie tekstu przez uzytkownika
-            key = [] # tablica z kluczem
-            example = Szyfrator(plain_text, key) #deklaracja obiektu
+            plain_text = input("Input text:  ")
+            key = []
+            example = Encryptor(plain_text, key)
             
-            x = example.code() # szyfrowanie 
-            y = example.keying() # ta funkcja zwraca klucz aby w kolejnym kroku dokonac deszyfrowania
+            x = example.code()
+            y = example.keying()
 
-            encoding = Deszyfrator(x,y) # Deszyfrowanie 
+            encoding = Decryptor(x,y)
             encoding.encode()
 
 
         elif  i == '2':
-            text = input("\nPodaj tekst, który chcesz zaszyfrować: ") #wprowadzenie tekstu przez uzytkownika
-            key = [] #tablica z kluczem
-            szyfrowanie = Szyfrator(text, key) #deklaracja obiektu
-            szyfrowanie.code() #Szyfrowanie 
+            text = input("\nInput text to encryption: ")
+            key = []
+            szyfrowanie = Szyfrator(text, key)
+            szyfrowanie.code()
 
 
         elif i == '3':
-            szyfrogram = input("\nPodaj tekst, który chcesz odszyfrować: ") #wprowadzenie tekstu przez uzytkownika
-            key = input("\nWprowadz klucz deszyfrujący") #tablica z kluczem
-            deszyfrowanie = Deszyfrator(szyfrogram, key) #deklaracja obiektu
-            deszyfrowanie.encode() #Deszyfrowanie 
+            szyfrogram = input("\nInput text to decryption: ")
+            key = input("\nWprowadz klucz deszyfrujący")
+            deszyfrowanie = Deszyfrator(szyfrogram, key)
+            deszyfrowanie.encode()
         
         elif i == '4':
-            key = [] #tablica z kluczem
-            xd = [] #pomocnicza tablica
+            key = []
+            xd = []
 
-            filename = input("\t\nPodaj nazwę pliku który chcesz zaszyfrować") #nazwa szyfrowanego pliku
-            with open(filename, 'r', encoding = 'utf-8') as f: #odczyt danych z pliku tekstowego
+            filename = input("\t\nInput filename to encryption: ")
+            with open(filename, 'r', encoding = 'utf-8') as f:
                 xd = str(f.read())
 
-            szyfrowanie = Szyfrator(xd, key) #Szyfrowanie
-            x = szyfrowanie.code()  #SZyfrowanie
+            szyfrowanie = Encryptor(xd, key)
+            x = szyfrowanie.code()
 
-            print("\tZapisano do pliku zaszyfrowaną wiadomość")   
-            with open (filename, 'w', encoding = 'utf-8') as f: #Zapisanie zaszyfrowaej widomości do pliku tekstowego
+            print("\tSaved to file encrypted information")
+            with open (filename, 'w', encoding = 'utf-8') as f:
                 f.write(x)
         
         elif i == '5':
             
             xd = []
-            filename = input("\t\nPodaj nazwę pliku który chcesz odszyfrować") #nazwa szyfrowanego pliku
-            key = input("Podaj klucz deszyfrujący: ")
-            with open(filename, 'r', encoding = 'utf-8') as f: #odczyt danych z pliku tekstowego
+            filename = input("\t\nInput filename to decryption")
+            key = input("nInput key: ")
+            with open(filename, 'r', encoding = 'utf-8') as f:
                 xd = str(f.read())
 
-            deszyfrowanie = Deszyfrator(xd, key)
+            deszyfrowanie = Decryptor(xd, key)
             x = deszyfrowanie.encode()
 
-            print("\tZapisano do pliku odszyfrowaną wiadomość")
-            with open (filename, 'w', encoding = 'utf-8') as f: #Zapisanie zaszyfrowaej widomości do pliku tekstowego
+            print("\tSaved plain text to file")
+            with open (filename, 'w', encoding = 'utf-8') as f:
                 f.write(x)
 
         elif i =='6':
-            sys.exit(" \n\nMiło było mi zademonstrować Ci działanie szyfru zaprojektowanego przez Pawła Polskiego")
+            sys.exit(" \n\nGoodbye")
         
         else:
-            sys.exit("\n\nWprowadzono błędny parametr")
+            sys.exit("\n\nIncorrect value, please try one more time")
