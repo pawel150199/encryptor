@@ -23,7 +23,7 @@ jobs:
             python3 Test.py
 
 workflows:
-  build:
+  build_and_test:
     jobs:
       - build
       - test:
