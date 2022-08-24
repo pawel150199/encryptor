@@ -2,30 +2,29 @@ version: 2.1
 
 jobs:
   build:
+    working_directory: 
     docker:
       - image: "circleci/python:3.9.9"
     steps:
       - checkout
       - run:
-          name: Try to build
           command: |
             pip3 install -r requirements.txt
             python3 Main.py
   test:
+    working_directory: 
     docker:
       - image: "circleci/python:3.9.9"
     steps:
       - checkout
       - run:
-          name: Tests
           command: |
             pip3 install -r requirements.txt
             python3 Test.py
-
 workflows:
   build_and_test:
     jobs:
       - build
       - test:
-        requires:
-          -build
+          requires:
+            - build
