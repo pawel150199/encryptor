@@ -51,7 +51,7 @@ class Encryptor:
         return "".join(coded_text)
 
 
-"""                           Deszyfrator                  """
+"""Decryptor"""
 
 
 class Decryptor:
@@ -108,7 +108,7 @@ if __name__=='__main__':
         i = input("\t\t\nChose function: ")
 
         if i == '1': 
-            """ Szyfrowanie  i deszyfrowanie - prezentacja działania"""
+            """Demo of usage program"""
             plain_text = input("Input text:  ")
             key = []
             example = Encryptor(plain_text, key)
@@ -129,7 +129,7 @@ if __name__=='__main__':
 
         elif i == '3':
             szyfrogram = input("\nInput text to decryption: ")
-            key = input("\nWprowadz klucz deszyfrujący")
+            key = input("\nInput key: ")
             deszyfrowanie = Deszyfrator(szyfrogram, key)
             deszyfrowanie.encode()
         
