@@ -26,7 +26,7 @@ if __name__=='__main__':
             """Demo of usage program"""
             plain_text = input("Input text:  ")
             key = []
-            example = Encryptor(plain_text, key)
+            example = Encryptor(plain_text)
             
             x = example.code()
             y = example.keying()
@@ -38,7 +38,7 @@ if __name__=='__main__':
         elif  i == '2':
             text = input("\nInput text to encryption: ")
             key = []
-            szyfrowanie = Encryptor(text, key)
+            szyfrowanie = Encryptor(text)
             szyfrowanie.code()
 
 
@@ -56,7 +56,7 @@ if __name__=='__main__':
             with open(filename, 'r', encoding = 'utf-8') as f:
                 xd = str(f.read())
 
-            szyfrowanie = Encryptor(xd, key)
+            szyfrowanie = Encryptor(xd)
             x = szyfrowanie.code()
 
             print("\tSaved to file encrypted information")
