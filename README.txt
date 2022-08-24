@@ -1,8 +1,9 @@
-W celu uruchomienia programu należy kliknąć dwukrotnie lewym przyciskiem w plik wykonywalny exe jeśli korzysta się z systemu windows. 
+# Simple own encryption algorithm
 
-Jeśli wykorzystywanym systemem jest inny niż Windows należy uruchomić program zgodnie z instrukcją z punktu 5 z sprawozdania.
+![CircleCI](https://img.shields.io/circleci/build/github/pawel150199/Encryptor)
+![GitHub top language](https://img.shields.io/github/languages/top/pawel150199/Encryptor)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pawel150199/Encryptor)
+![GitHub last commit](https://img.shields.io/github/last-commit/pawel150199/Encryptor)
 
-
-Oprócz pliku wykonywalnego i pliku Szyfrator.py, czyli kodu źródłowego w ZIPie jest umieszczony przykładowy plik tekstowy, oraz sprawozdanie w wersji PDF.
-
- 
+## Demonstration of usage
+### Menu
