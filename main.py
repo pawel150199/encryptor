@@ -1,7 +1,7 @@
 import sys
 from prettytable import  PrettyTable
-from Decryptor import Decryptor
-from Encryptor import Encryptor
+from decryptor import Decryptor
+from encryptor import Encryptor
 
 # Main part
 if __name__=='__main__':

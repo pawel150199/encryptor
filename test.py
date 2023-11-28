@@ -1,5 +1,5 @@
-from Encryptor import Encryptor
-from Decryptor import Decryptor
+from encryptor import Encryptor
+from decryptor import Decryptor
 import unittest
 
 class Test(unittest.TestCase):
